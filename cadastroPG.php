@@ -7,4 +7,4 @@
     </td>
         
 </tr>
-<a href="select.php"><button>Voltar</button></a>
+<a href="index.php"><button>Voltar</button></a>
