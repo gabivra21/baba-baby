@@ -1,6 +1,7 @@
 <?php
 require 'configu.php';
 
+$delete = filter_input(INPUT_GET, 'delete');
 /*select BABÁ*/
 $querySQL = "SELECT DISTINCT b.idBaba, u.nome as nomeBaba, b.tempoExp, b.ref, b.sobre, f.nome as fxEtaria, b.valorH 
 FROM baba as b 
@@ -11,6 +12,12 @@ $queryPreparada = $pdo->prepare($querySQL);
 $queryPreparada->execute();
 $queryPreparada->setFetchMode(PDO::FETCH_ASSOC);
 $listaBaba = $queryPreparada->fetchAll();
+
+function alerta(string $mensagem) {
+    echo "<script type='text/javascript' >
+                alert('$mensagem');
+          </script>";
+}
 ?>
 
 <h1>Listagem de Babá</h1>
@@ -42,6 +49,14 @@ $listaBaba = $queryPreparada->fetchAll();
         </tr>
     <?php endforeach; ?>
 </table>
+
+<?php
+if ($delete == 1)  {
+    alerta("Registro da Baba exluído com sucesso!");
+} else if ($delete === 0) {
+    alerta("Falha ao excluir registro.");
+} else {}
+?>
 
 <a href="cadastroPG.php">Cadastrar Usuário</a><br>
 <a href="index.php"><button>Voltar</button></a>

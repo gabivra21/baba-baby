@@ -8,7 +8,8 @@ $querySQL = "SELECT dia.nome as dia_da_semana, turno.nome as turno, dispo.fk_idD
 FROM disponibilidade as dispo
 LEFT JOIN dia ON dispo.fk_idDia = dia.idDia
 LEFT JOIN turno ON dispo.fk_idTurno = turno.idTurno
-WHERE dispo.fk_idBaba = $idBaba;";
+WHERE dispo.fk_idBaba = $idBaba
+ORDER BY idDia;";
 
 $queryPreparada = $pdo->prepare($querySQL);
 $queryPreparada->execute();
@@ -45,6 +46,6 @@ foreach($listaConsolidada as $dia => $turnos) {
         <?php endforeach; ?>
     </tbody>
 </table>
-<a  href="editarDisponibilidadeBABA.php?idBaba=<?php echo $idBaba; ?>">[Editar disponibilidade]</a>
 <a  href="addDisponibilidadeBABA.php?idBaba=<?php echo $idBaba; ?>">[Adicionar Disponibilidade]</a>
+<a  href="editarDisponibilidadeBABA.php?idBaba=<?php echo $idBaba; ?>">[Remover disponibilidade]</a>
 <a type="button" href="selectBABA.php">[Voltar]</a>

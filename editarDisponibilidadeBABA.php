@@ -8,7 +8,8 @@ $querySQL = "SELECT dispo.idDisponibilidade, dia.nome as dia_da_semana, turno.no
 FROM disponibilidade as dispo
 LEFT JOIN dia ON dispo.fk_idDia = dia.idDia
 LEFT JOIN turno ON dispo.fk_idTurno = turno.idTurno
-WHERE dispo.fk_idBaba = $idBaba;";
+WHERE dispo.fk_idBaba = $idBaba
+ORDER BY idDia;;";
 
 $queryPreparada = $pdo->prepare($querySQL);
 $queryPreparada->execute();
@@ -22,7 +23,7 @@ $disponibilidadeBaba = $queryPreparada->fetchAll();
         <tr>
             <th>Dia da Semana</th>
             <th>Turno</th>
-            <th>Operações</th>
+            <th>Operação</th>
         </tr>
     </thead>
     <tbody>
@@ -31,13 +32,10 @@ $disponibilidadeBaba = $queryPreparada->fetchAll();
                 <td><?=$dispo['dia_da_semana']; ?></td>
                 <td><?=$dispo['turno']; ?></td>
                 <td>
-                    <a href="editarDisponibilidadeBABA2.php?idDisponibilidade=<?=$dispo['idDisponibilidade'];?>&idBaba=<?=$idBaba;?>">Editar</a>
                     <a href="excluirDisponibilidadeBABA.php?idDisponibilidade=<?=$dispo['idDisponibilidade'];?>&idBaba=<?=$idBaba;?>">Excluir</a>
                 </td>
             </tr>
         <?php endforeach; ?>
     </tbody>
 </table>
-<a  href="editarDisponibilidadeBABA.php?idBaba=<?php echo $idBaba; ?>">[Editar disponibilidade]</a>
-<a  href="addDisponibilidadeBABA.php?idBaba=<?php echo $idBaba; ?>">[Adicionar Disponibilidade]</a>
-<a type="button" href="selectBABA.php">[Voltar]</a>
+<a type="button" href="disponibilidadeBABA.php?idBaba=<?php echo $idBaba; ?>">[Voltar]</a>

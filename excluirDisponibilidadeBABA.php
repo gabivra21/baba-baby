@@ -2,11 +2,17 @@
 
 require 'configu.php';
 
-$id = filter_input(INPUT_GET, 'idDisponibilidade');
+$dispo = filter_input(INPUT_GET, 'idDisponibilidade');
 $idBaba = filter_input(INPUT_GET, 'idBaba');
 
-$querySQL = "DELETE FROM disponibilidade WHERE idDisponibilidade = $id";
-$queryPreparada = $pdo->prepare($querySQL);
-$queryPreparada->execute();
-header("Location: editarDisponibilidadeBABA.php?idBaba=$idBaba");
+confirmacao("Deseja excluir a disponibilidade?", $idBaba, $dispo);
+function confirmacao(string $mensagem, int $idBaba, int $dispo) {
+    echo "<script>
+                if (confirm('$mensagem')) {
+                    window.location.href = 'excluirDisponibilidadeBABA2.php?idBaba=$idBaba&disponibilidade=$dispo';
+                } else {
+                    window.location.href = 'editarDisponibilidadeBABA.php?idBaba=$idBaba';
+                }
+          </script>";
+}
 ?>
